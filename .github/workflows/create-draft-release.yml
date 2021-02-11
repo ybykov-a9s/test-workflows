@@ -1,0 +1,6 @@
+name: Create Draft Release
+
+on:
+  push:
+    branches:
+    - main
