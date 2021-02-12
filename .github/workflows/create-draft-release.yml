@@ -1,4 +1,4 @@
-name: Create Draft Release
+name: This is a Feature test workflow
 
 on:
   push:
