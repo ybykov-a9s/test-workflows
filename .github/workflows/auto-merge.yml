@@ -23,7 +23,7 @@ jobs:
           curl "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" \
             --silent \
             --location \
-            --header "Authorization: token ${YBYKOV_A9S_BUILDPACKS_GITHUB_TOKEN}"
+            --header "Authorization: token ${GITHUB_TOKEN}"
         )"
 
         echo "::set-output name=mergeable_state::$(echo "${payload}" | jq -r -c .mergeable_state)"
