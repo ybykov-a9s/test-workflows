@@ -2,12 +2,15 @@ name: Auto-Merge
 
 on:
   pull_request_review:
+    branches:
+    - main
     types:
     - submitted
 
 jobs:
   automerge:
     name: Merge or Rebase
+    if: ${{ github.event.review.state == 'approved' }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
