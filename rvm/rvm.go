@@ -119,7 +119,7 @@ func (r Env) rvmVersion() string {
 }
 
 func (r Env) installRVM() (packit.BuildResult, error) {
-	rvmLayer, err := r.Context.Layers.Get("rvm", packit.LaunchLayer)
+	rvmLayer, err := r.Context.Layers.Get("rvm")
 	if err != nil {
 		return packit.BuildResult{}, err
 	}
@@ -139,7 +139,7 @@ func (r Env) installRVM() (packit.BuildResult, error) {
 
 	r.Logger.Process("Installing RVM version '%s' from URI '%s'", r.rvmVersion(), r.Configuration.URI)
 
-	if err = rvmLayer.Reset(); err != nil {
+	if rvmLayer, err = rvmLayer.Reset(); err != nil {
 		r.Logger.Process("Resetting RVM layer failed")
 		return packit.BuildResult{}, err
 	}
@@ -165,7 +165,7 @@ func (r Env) installRVM() (packit.BuildResult, error) {
 	// does not have these keys imported yet fails otherwise
 	// see: https://rvm.io/rvm/security
 	// commented for now and kept for future usage
-	gpgBinaryInstalledOutput, err := exec.Command("which", "gpg").Output()
+	gpgBinaryInstalledOutput, _ := exec.Command("which", "gpg").Output()
 
 	if len(gpgBinaryInstalledOutput) > 0 {
 		importGPGKey1Cmd := strings.Join([]string{
@@ -231,6 +231,12 @@ func (r Env) installRVM() (packit.BuildResult, error) {
 
 	rvmCleanupCmd := strings.Join([]string{"rvm", "cleanup", "all"}, " ")
 	err = r.RunRvmCmd(rvmCleanupCmd, &rvmLayer)
+	if err != nil {
+		return packit.BuildResult{}, err
+	}
+
+	rvmSetDefaultRubyCmd := strings.Join([]string{"rvm", "alias", "create", "default", r.rubyVersion()}, " ")
+	err = r.RunRvmCmd(rvmSetDefaultRubyCmd, &rvmLayer)
 	if err != nil {
 		return packit.BuildResult{}, err
 	}
