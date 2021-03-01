@@ -20,7 +20,7 @@ jobs:
       id: pull_request
       env:
         NUMBER: ${{ github.event.pull_request.number }}
-        GITHUB_TOKEN: ${{ secrets.YBYKOV_A9S_BUILDPACKS_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.MS_BOT_GITHUB_TOKEN }}
       run: |
         payload="$(
           curl "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" \
@@ -36,7 +36,7 @@ jobs:
       uses: paketo-buildpacks/github-config/actions/pull-request/merge@main
       with:
         user: paketo-bot
-        token: ${{ secrets.YBYKOV_A9S_BUILDPACKS_GITHUB_TOKEN }}
+        token: ${{ secrets.MS_BOT_GITHUB_TOKEN }}
         number: ${{ github.event.pull_request.number }}
 
     - name: Rebase
@@ -44,5 +44,5 @@ jobs:
       uses: paketo-buildpacks/github-config/actions/pull-request/rebase@main
       with:
         user: paketo-bot
-        token: ${{ secrets.YBYKOV_A9S_BUILDPACKS_GITHUB_TOKEN }}
+        token: ${{ secrets.MS_BOT_GITHUB_TOKEN }}
         number: ${{ github.event.pull_request.number }}

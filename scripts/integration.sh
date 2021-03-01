@@ -90,9 +90,6 @@ function images::pull() {
     builder="index.docker.io/paketobuildpacks/builder:base"
   fi
 
-  #util::print::title "Pulling builder image..."
-  #docker pull "${builder}"
-
   util::print::title "Setting default pack builder image..."
   pack set-default-builder "${builder}"
 
@@ -105,9 +102,6 @@ function images::pull() {
     pack inspect-builder "${builder}" --output json \
       | jq -r '.local_info.lifecycle.version'
   )"
-
-  #util::print::title "Pulling run image..."
-  #docker pull "${run_image}"
 
   util::print::title "Pulling lifecycle image..."
   docker pull "${lifecycle_image}"
