@@ -10,13 +10,7 @@ import (
 	"unsafe"
 )
 
-var (
-	tty *os.File
-
-	unlockSignals = []os.Signal{
-		os.Interrupt, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGKILL,
-	}
-)
+var tty *os.File
 
 type window struct {
 	Row    uint16

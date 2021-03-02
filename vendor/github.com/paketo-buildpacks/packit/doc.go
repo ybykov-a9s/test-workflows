@@ -1,6 +1,6 @@
 // Package packit provides primitives for implementing a Cloud Native Buildpack
 // according to the specification:
-// https://github.com/buildpacks/spec/blob/main/buildpack.md.
+// https://github.com/buildpacks/spec/blob/master/buildpack.md.
 //
 // Buildpack Interface
 //
@@ -114,12 +114,10 @@
 //   		// The BuildContext also provides a mechanism whereby a layer can be
 //   		// created to store the results of a given portion of the build process.
 //   		// This example creates a layer called "yarn" that will hold the yarn cli.
-//   		layer, err := context.Layers.Get("yarn")
+//   		layer, err := context.Layers.Get("yarn", packit.BuildLayer, packit.LaunchLayer)
 //   		if err != nil {
 //   			return packit.BuildResult{}, err
 //   		}
-//   		layer.Build = true
-//   		layer.Launch = true
 //
 //   		// At this point we are performing the process of installing the yarn cli.
 //   		// As those details are not important to the explanation of the packit API,

@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 
+	"github.com/avarteqgmbh/rvm-bundler-cnb/bundler"
 	"github.com/avarteqgmbh/rvm-cnb/rvm"
 
 	"github.com/paketo-buildpacks/packit"
@@ -10,6 +11,5 @@ import (
 
 func main() {
 	logEmitter := rvm.NewLogEmitter(os.Stdout)
-	environment := rvm.NewEnvironment(logEmitter)
-	packit.Build(rvm.Build(environment, logEmitter))
+	packit.Build(bundler.Build(logEmitter))
 }

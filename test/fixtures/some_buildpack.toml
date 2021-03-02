@@ -1,0 +1,17 @@
+api = "0.2"
+
+[buildpack]
+  id = "org.some-org.some-buildpack"
+  name = "Some Buildpack"
+  version = "some-version"
+
+  [metadata.configuration]
+    default_bundler_version = "2.1.4"
+
+    install_puma = true
+    [metadata.configuration.puma]
+      version = "4.3.5"
+      bind = "tcp://0.0.0.0:8080"
+      workers = "5"
+      threads = "5"
+      preload = true
